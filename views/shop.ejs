@@ -1,63 +1,118 @@
+<!-- the above original code was written in owner-login.ejs -->
 <%- include('./partials/header') %>
 
-<% if(success.length>0){ %>
-    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
-        <span class="inline-block mt-1 mb-1 text-white">
-            <%= success %>
-        </span>
+<div id="carousel" class="-z-50 relative w-full overflow-hidden sm:h-32 md:h-40 lg:h-52">
+  <div class="flex transition-transform ease-in-out duration-500" id="carousel-inner">
+    <div class="w-full flex-shrink-0" id="slide-1">
+      <img src="/images/myphoto4.png" class="w-full h-full object-cover" alt="First slide">
     </div>
-    <% } %>
+    <div class="w-full flex-shrink-0" id="slide-2">
+      <img src="/images/photo10.png" class="w-full h-full object-cover" alt="Second slide">
+    </div>
+    <div class="w-full flex-shrink-0" id="slide-3">
+      <img src="/images/photo8.png" class="w-full h-full object-cover" alt="Third slide">
+    </div>
+  </div>
+  <div class="absolute inset-0 flex justify-between items-center p-4">
+    <button id="prev" class="bg-white p-2 rounded-full shadow">
+      <i class="ri-arrow-left-s-line"></i>
+    </button>
+    <button id="next" class="bg-white p-2 rounded-full shadow">
+      <i class="ri-arrow-right-s-line"></i>
+    </button>
+  </div>
+</div>
 
-    <!-- items-start --> 
-     <!-- h-auto  -->
-<div class="w-full flex min-h-fit px-20 pt-12">
-    
-        <div class=" sticky top-24 w-[25%] flex h-3/6 mt-0.5 flex-col items-start">
-            <div class="flex items-center gap-2">
-                <h3>sort by</h3>
-                <form action="/shop">
-                    <select class="border-[1px] px-2 py-1" name="sortby" id="">
-                        <option value="popular">Popular</option>
-                        <option value="newest">Newest</option>
-                    </select>
-                </form>
-            </div>
-            <div class="flex flex-col mt-20">
-                <a class="block w-fit mb-2" href="">New Collection</a>
-                <a class="block w-fit mb-2" href="">All Products</a>
-                <a class="block w-fit mb-2" href="">Discounted Products</a>
-            </div>
-            <div class="mt-32">
-                <a class="block w-fit mb-2" href="">Filter by :</a>
-                <a class="block w-fit mb-2" href="">Availability</a>
-                <a class="block w-fit mb-2" href="">Discount</a>
-            </div>
-        </div>   
-        <div class="w-[80%] flex   gap-5 max-h-fit">
-            <div class="flex flex-row flex-wrap items-start gap-5">
-                <% products.forEach(function(product){ %>
-    
-                    <div class="w-60">
-                        <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgcolor %>]">
-                            <img class="h-[12rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
-                                alt="">
-                        </div>
-                      
-                      <div class="flex justify-between bg-[<%= product.panelcolor %>] items-center px-4 py-4 text-[<%= product.textcolor %>]">
-                            <div>
-                               <h3>
-                                    <%= product.name %>
-                                </h3>
-                                <h4>₹ <%= product.price %>
-                                </h4>
-                            </div>
-                            <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="/addtocart/<%= product._id %>">
-                                <i class="ri-add-line"></i>
-                            </a>
-                      </div>
-                    </div>
-                    <% }) %>
-            </div>
+<% if(success.length > 0) { %>
+<div id="success-message" class="absolute top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+    <span class="inline-block mt-1 mb-1 text-white">
+        <%= success %>
+    </span>
+</div>
+<% } %>
+
+<div class="w-full flex flex-col sm:flex-row min-h-fit my-1 sm:my-5 px-2 sm:px-14 md:px-20">
+    <div class="sticky top-12 sm:px-2 sm:sticky sm:top-28 w-[100%] sm:w-[25%] flex h-2/6 mt-0.5 flex-row sm:flex-col justify-between items-start">
+        <div class="flex-col items-center gap-2">
+            <h3>Sort by</h3>
+            <form action="/shop">
+                <select class="border-[1px] px-2 py-1" name="sortby" id="">
+                    <option value="popular">Popular</option>
+                    <option value="newest">Newest</option>
+                </select>
+            </form>
+        </div>
+        <div class="flex flex-col mt-0 sm:mt-20">
+            <a class="block w-fit mb-2" href="">New Collection</a>
+            <a class="block w-fit mb-2" href="">All Products</a>
+            <a class="block w-fit mb-2" href="">Discounted Products</a>
+        </div>
+        <div class="flex-col mt-0 sm:mt-32">
+            <a class="block w-fit mb-2" href="">Filter by:</a>
+            <a class="block w-fit mb-2" href="">Availability</a>
+            <a class="block w-fit mb-2" href="">Discount</a>
         </div>
     </div>
-    <%- include('./partials/footer') %>
+    <div class="w-[100%] sm:w-[80%] flex gap-5 max-h-fit">
+        <div class="flex flex-row flex-wrap items-start justify-center gap-2 md:gap-3 lg:gap-5">
+            <% products.forEach(function(product){ %>
+            <div class="w-32 md:w-44 lg:w-60">
+                <div class="w-full h-28 md:h-40 lg:h-52 flex items-center justify-center bg-[<%= product.bgcolor %>]">
+                    <img class="h-[6rem] md:h-[9rem] lg:h-[12rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="">
+                </div>
+                <div class="flex justify-between bg-[<%= product.panelcolor %>] items-center px-2 py-2 md:px-4 md:py-4 text-[<%= product.textcolor %>]">
+                    <div>
+                        <h3><%= product.name %></h3>
+                        <h4>₹ <%= product.price %></h4>
+                    </div>
+                    <a class="w-4 h-4 md:w-7 md:h-7 flex items-center justify-center rounded-full bg-white" href="/addtocart/<%= product._id %>">
+                        <i class="ri-add-line"></i>
+                    </a>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>
+
+<script>
+  const carousel = document.getElementById('carousel');
+  const innerCarousel = document.getElementById('carousel-inner');
+  const slides = innerCarousel.children;
+  const prevButton = document.getElementById('prev');
+  const nextButton = document.getElementById('next');
+  let index = 0;
+
+  function updateCarousel() {
+    innerCarousel.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  prevButton.addEventListener('click', () => {
+    index = (index - 1 + slides.length) % slides.length;
+    updateCarousel();
+  });
+
+  nextButton.addEventListener('click', () => {
+    index = (index + 1) % slides.length;
+    updateCarousel();
+  });
+
+  setInterval(() => {
+    index = (index + 1) % slides.length;
+    updateCarousel();
+  }, 5000); 
+
+  
+
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            const successMessage = document.getElementById("success-message");
+            if (successMessage) {
+                successMessage.style.display = "none";
+            }
+        }, 3000);
+    });
+
+</script>

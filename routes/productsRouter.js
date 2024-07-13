@@ -20,7 +20,7 @@ router.post("/create",upload.single("image"), async function(req,res){
     res.redirect("/owners/admin");
     }
     catch(err){
-        //i am not forming costum error handler
+        
         res.send(err.message);
     }
   
